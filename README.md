@@ -32,3 +32,27 @@ src/
 ```
 
 Or run the project directly from your IDE.
+
+## Docker
+
+Build the Docker image
+
+```bash
+docker build -t springboot-user-management .
+```
+
+Run the container
+
+```bash
+docker run -p 8080:8080 springboot-user-management
+```
+
+Docker Hub Image
+
+```
+vedansh12/usermanagement:latest
+```
+
+## Deployment
+
+The application was containerized using Docker and successfully deployed on an AWS EC2 instance.

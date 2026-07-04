@@ -3,6 +3,7 @@ package com.vedansh.usermanagement.controller;
 import com.vedansh.usermanagement.model.User;
 import com.vedansh.usermanagement.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -14,8 +15,12 @@ public class UserController {
     @Autowired
     private UserRepository userRepository;
 
-    @PostMapping
-    public User createUser(@RequestBody User user) {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
+
+    @PostMapping("/register")
+    public User register(@RequestBody User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 
@@ -34,7 +39,6 @@ public class UserController {
         User user = userRepository.findById(id).orElseThrow();
         user.setName(updated.getName());
         user.setEmail(updated.getEmail());
-        user.setPassword(updated.getPassword());
         return userRepository.save(user);
     }
 
